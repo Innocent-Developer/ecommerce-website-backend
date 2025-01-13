@@ -155,7 +155,10 @@ app.post("/account/login", async (req, res) => {
     );
     return res
       .status(200)
-      .send({ success: true, message: "Login successful.", token });
+      .send({ success: true, message: "Login successful.", data: {
+        id: user._id,
+        token,
+      }, });
   } catch (error) {
     return res
       .status(500)
