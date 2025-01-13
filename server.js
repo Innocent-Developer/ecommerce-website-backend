@@ -148,14 +148,15 @@ app.post("/account/login", async (req, res) => {
         .send({ success: false, error: "Invalid login credentials." });
     }
     // Generate a JWT token
-    const token = jwt.sign(
-      { id: user._id, email: user.email }, 
-      JWT_SECRET, 
-      { expiresIn: "1h" } 
-    );
-    return res
-      .status(200)
-      .send({ success: true, message: "Login successful.", token });
+    return res.status(200).send({
+      success: true,
+      message: "Login successful.",
+      token,
+      user: {
+        _id: user._id, // Include _id for frontend use
+        email: user.email,
+      },
+    });
   } catch (error) {
     return res
       .status(500)
